@@ -14,7 +14,7 @@ services:
     networks:
       - n8n_network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-n8n}"]
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-n8n}']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -41,6 +41,9 @@ services:
       - N8N_LOG_LEVEL=${N8N_LOG_LEVEL:-info}
       - N8N_METRICS=${N8N_METRICS:-true}
       - N8N_USER_FOLDER=/home/node/.n8n
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - N8N_JWT_AUTH_HEADER=${N8N_JWT_AUTH_HEADER}
+      - N8N_JWT_AUTH_HEADER_VALUE=${N8N_JWT_AUTH_HEADER_VALUE}
     volumes:
       - n8n_data:/home/node/.n8n
     networks:
@@ -49,7 +52,7 @@ services:
       postgres:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "wget --spider -q http://localhost:5678/healthz || exit 1"]
+      test: ['CMD-SHELL', 'wget --spider -q http://localhost:5678/healthz || exit 1']
       interval: 30s
       timeout: 10s
       retries: 3
@@ -59,8 +62,8 @@ services:
     image: nginx:alpine
     restart: always
     ports:
-      - "80:80"
-      - "443:443"
+      - '80:80'
+      - '443:443'
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./ssl:/etc/nginx/ssl:ro
