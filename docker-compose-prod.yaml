@@ -44,6 +44,8 @@ services:
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
       - N8N_JWT_AUTH_HEADER=${N8N_JWT_AUTH_HEADER}
       - N8N_JWT_AUTH_HEADER_VALUE=${N8N_JWT_AUTH_HEADER_VALUE}
+    ports:
+      - '5678:5678'
     volumes:
       - n8n_data:/home/node/.n8n
     networks:
